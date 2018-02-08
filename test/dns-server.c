@@ -272,6 +272,13 @@ static void buf_alloc(uv_handle_t* handle,
   buf->len = suggested_size;
 }
 
+static void buf_delocate(uv_handle_t* handle,
+                        size_t suggested_size,
+                        uv_buf_t* buf) {
+  free(buf->base);
+  buf->len = 0;
+}
+
 
 static void on_connection(uv_stream_t* server, int status) {
   dnshandle* handle;
